@@ -19,6 +19,16 @@ body{
   color: rgb(99, 2, 2);
   font-size: 75px;
   text-shadow: 4px 4px 4px #aaa;
+  animation: fadeInBackground 5s ease;
+}
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .onebigcontainer {
@@ -65,7 +75,7 @@ body{
   box-shadow: inset -2px -2px 7px #fff, inset 2px 2px 7px rgba(0, 0, 0, 0.945);
 }
 
-.textContainer{
+/* .textContainer{
   height: 15vh;
   width: 90vw;
   background: rgb(247, 247, 247);
@@ -76,7 +86,7 @@ body{
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
-} 
+}  */
 
 .keyboard{
   display: flex;
@@ -169,5 +179,13 @@ body{
   border: none;
   box-shadow: inset 2px 2px 7px #ffffff, inset -2px -2px 7px rgba(0, 0, 0, 0.945);
   border-radius: 0.5rem;
+}
+
+.hidden-answer {
+  display:none;
+}
+
+.about {
+
 }
 
