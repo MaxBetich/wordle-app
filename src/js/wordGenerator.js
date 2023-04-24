@@ -1,4 +1,4 @@
-export default class WordGenerator {
+export class WordGenerator {
 
   static async wordGenerator() {
     const urlString = "https://random-word-api.herokuapp.com/word?length=5&lang=en";
@@ -24,9 +24,21 @@ export default class WordGenerator {
         const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["message"]}`;
         throw new Error(errorMessage);
       }
+      console.log(jsonifiedResponse);
       return jsonifiedResponse;
     } catch(error) {
       return error;
     }
   }
 }
+
+// export async function wordChecker(inputWord) {
+//   const response = await WordGenerator.wordChecker(inputWord);
+//   console.log(response);
+//   const word = response[0];
+//   if (word["word"]) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
