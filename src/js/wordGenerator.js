@@ -6,7 +6,7 @@ export default class WordGenerator {
       const response = await fetch(urlString);
       const jsonifiedResponse = await response.json();
       if (!response.ok) {
-        const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["error-type"]}`;
+        const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["error"]}`;
         throw new Error(errorMessage);
       }
       return jsonifiedResponse;
@@ -21,7 +21,7 @@ export default class WordGenerator {
       const response = await fetch(urlString);
       const jsonifiedResponse = await response.json();
       if (!response.ok) {
-        const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["error-type"]}`;
+        const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["message"]}`;
         throw new Error(errorMessage);
       }
       return jsonifiedResponse;
