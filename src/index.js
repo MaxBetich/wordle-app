@@ -138,6 +138,17 @@ function closeModal(modal){
   overlay.classList.remove('active');
 }
 
+const keySpark = document.querySelectorAll(".key")
+
+keys.forEach((key) => {
+  key.addEventListener("click", () => {
+    key.classList.add("sparkle");
+    setTimeout(() => {
+      key.classList.remove("sparkle");
+    }, 500);
+  });
+});
+
 
 // window.addEventListener("load", function() {
 //   this.document.querySelector("").addEventListener("submit", handleFormSubmission);

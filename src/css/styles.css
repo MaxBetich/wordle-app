@@ -156,8 +156,13 @@ body{
     transform: scale(2);
   }
   100% {
-    transform
+    transform: scale(1);
+    opacity: 1;
   }
+}
+
+.sparkle {
+  animation: sparkle 0.5s linear;
 }
 
 .key:hover{
