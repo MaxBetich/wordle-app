@@ -28,6 +28,57 @@ keys.forEach((key)=> {
   });
 });
 
+const wordleGrid = document.querySelector(".wordle-grid");
+
+wordleGrid.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    const currentCell = event.target;
+    const rowCells = currentCell.parentNode.querySelectorAll(".wordle-cell");
+    rowCells.forEach((cell) => {
+      cell.disabled = true;
+    });
+
+    const currentRow = currentCell.parentNode;
+    const nextRow = currentRow.parentNode.nextElementSibling;
+    if (nextRow) {
+      const firstInput = nextRow.querySelector(".wordle-cell");
+      firstInput.focus();
+    } else {
+      let allInputsDisabled = true;
+      let validWord = true;
+      for(const cell of rowCells) {
+        if (!cell.value) {
+          allInputsDisabled = false;
+        }
+      }
+      if (allInputsDisabled) {
+        for(const cell of rowCells) {
+          cell.disabled = true;
+        }
+        for (const cell of rowCells) {
+          const isValid = await  guessChecker (cell.value)
+          if (!isValid) {
+            validWord = false;
+            break;
+          }
+        }
+        if (!validWord) {
+          alert("Invalid word! Try again!");
+          for (const cell of rowCells) {
+            cell.value = "";
+            cell.disabled = false;
+          }
+          rowCells[0].focus();
+        }
+      } else {
+        for(const cell of rowCells) {
+          cell.disabled = false;
+        }
+      }
+    }
+  }
+});
+
 const deleteKey = document.querySelector(".delete");
 deleteKey.addEventListener("click", () => {
   const cells = document.querySelectorAll(".wordle-cell");

@@ -37,12 +37,13 @@ body{
   align-items: center;
   justify-content: space-evenly;
   height: 100vh;
+  margin-top: -75px;
 }
 
 .accordion-container {
   position: absolute;
   top: 130px;
-  left: 100px;
+  left: 240px;
   width: 400px;
   margin-right: 900px;
 }
@@ -58,12 +59,30 @@ body{
   width: 100%;
 }
 
+.accordion-button:focus {
+  box-shadow: none;
+  color: black;
+  border-bottom: 1px solid black;
+  background-color: white;
+  border-color: rgba(0,0,0,.125);
+}
+
+.accordion-button:not(.collapsed){
+  box-shadow: none;
+  background-color: white;
+  border-color: rgba(0,0,0,.125);
+}
+
+
+
 .wordle-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: calc(50vh - 100px);
   margin-bottom: 2rem;
+  position: relative;
+  margin-top: -65px;
 }
 
 .wordle-grid {
@@ -87,9 +106,8 @@ body{
   font-weight: bold;
   color: black;
   text-transform: uppercase;
-  border: none;
+  border: 1px solid black;
   border-radius: 50%;
-  border-color: black;
   text-align: center;
   box-shadow: inset -2px -2px 7px #fff, inset 2px 2px 7px rgba(0, 0, 0, 0.945);
 }
@@ -98,7 +116,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: -130px;
 }
 
 .row{
@@ -127,6 +145,19 @@ body{
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
   transform-style: preserve-3d;
   perspective: 1000px;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform
+  }
 }
 
 .key:hover{
@@ -180,12 +211,22 @@ body{
   border-radius: 0.5rem;
 }
 
+.generate:hover{
+  background-color: lightgrey;
+  transform: translateY(-5px)
+}
+
 .reset {
   font-size: inherit;
   background-color: #fff;
   border: none;
   box-shadow: inset 2px 2px 7px #ffffff, inset -2px -2px 7px rgba(0, 0, 0, 0.945);
   border-radius: 0.5rem;
+}
+
+.reset:hover{
+  background-color: lightgrey;
+  transform: translateY(-5px)
 }
 
 .hidden-answer {
@@ -204,6 +245,8 @@ body{
   background-color: white;
   width: 500px;
   max-width: 75%; 
+  height: 500px;
+  max-height: 50%;
   display: none;
   opacity: 0;
 }
@@ -258,4 +301,8 @@ body{
   display: block;
   opacity: 1;
   pointer-events: all;
+}
+
+.mButton {
+  margin-top: -60px;
 }
