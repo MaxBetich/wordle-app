@@ -16,7 +16,7 @@ export class WordGenerator {
   }
 
   static async wordChecker(guessWord) {
-    const urlString = `https://api.datamuse.com/words?sp=${guessWord}`;
+    const urlString = `https://api.datamuse.com/words?sp=${guessWord}&md=d`;
     try {
       const response = await fetch(urlString);
       const jsonifiedResponse = await response.json();

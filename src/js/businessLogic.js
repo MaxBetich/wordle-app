@@ -2,21 +2,21 @@
 
 export async function wordChecker(word) {
   const response = await WordGenerator.wordChecker(word);
-  console.log(response[0]);
-  if (response[0].word) {
-    return true;
-  } else {
+  if (response[0] === undefined) {
     return false;
+  } else {
+    return true;
   }
 }
 
 export async function guessChecker(word, answer) {
   const isGuessReal = await wordChecker(word);
+  const newWord = word.toLowerCase();
   if (isGuessReal === true) {
-    if (word === answer) {
-      printSuccess(word);
+    if (newWord === answer) {
+      printSuccess(newWord);
     } else {
-      const wordArray = word.split("");
+      const wordArray = newWord.split("");
       let outputArray = [];
       wordArray.forEach(element => {
         if (answer.includes(element)) {
@@ -25,7 +25,7 @@ export async function guessChecker(word, answer) {
           outputArray.push("-");
         }
       });
-      const answerArray = answer.split();
+      const answerArray = answer.split("");
       resultArray = [];
       for(let i = 0; i < 5; i ++) {
         if (outputArray[i] === answerArray[i]) {
@@ -45,6 +45,7 @@ export async function guessChecker(word, answer) {
           colorArray[i] = "green";
         }
       }
+      turnCounter();
       return colorArray;
     }
   } else {
@@ -56,69 +57,62 @@ export async function guessChecker(word, answer) {
 //UI logic-ish
 function turnCounter(word) {
   let totalGuess = 6;
-  let currentTurn = document.querySelector("class").getAttribute("id");
+  let currentTurn = parseInt(document.querySelector(".hidden-answer").getAttribute("id"));
   let guessRemaining = totalGuess - currentTurn;
-  if (guessRemaining = 0) {
+  if (guessRemaining === 0) {
     printFailure(word);
   }
-  document.getElementById("guessCount").innerText = guessRemaining;
-  document.querySelector("class").setAttribute("id", currentTurn + 1);
+  document.querySelector(".hidden-answer").setAttribute("id", currentTurn + 1);
 }
 
-function formSubmit(event) {
+async function formSubmit(event) {
   event.preventDefault();
-  document.querySelector(".error-class").innerText = null;
   const answer = document.querySelector(".hidden-answer").innerText;
   const inputArray = document.querySelectorAll(".filled");
   let wordArray = [];
   inputArray.forEach(element => {
     if (!element.hasAttribute("previous")) {
-      wordArray.push(element);
+      wordArray.push(element.value);
       element.setAttribute("previous", "");
     }
   });
   const word = wordArray.join("");
-  const colorArray = guessChecker(word, answer);
+  const colorArray = await guessChecker(word, answer);
   displayColors(colorArray);
-  if (colorArray != ["green", "green", "green", "green", "green"]) {
-    turnCounter(word);
-  }
 }
 
 function printSuccess(word) {
-  document.querySelector(".hidden-answer").removeAttribute("hidden"); 
+  // document.querySelector(".hidden-answer").removeAttribute("hidden"); 
   getResults(word);
-  let successP = document.createElement("p");
-  successP.innerText = `You Win`
-  document.querySelector(".hidden-answer").prepend(successP); 
+  document.querySelector(".title").innerText = "You Win!"; 
 }
 
 function printFailure(word) {
-  document.querySelector(".hidden-answer").removeAttribute("hidden"); 
+  // document.querySelector(".hidden-answer").removeAttribute("hidden"); 
   getResults(word);
-  let failureP = document.createElement("p");
-  failureP.innerText = `You Lose`
-  document.querySelector(".hidden-answer").prepend(failureP); 
+  document.querySelector(".title").innerText = `Game Over`;
 }
 
 function printError() {
-  let errorP = document.createElement("p");
-  errorP.setAttribute("class", "error-class");
-  errorP.innerText = "invalid word, please enter a real word";
-  document.querySelector(".wordle-container").prepend(errorP);
+  document.querySelector(".title").innerText = `Error`;
+  document.querySelector(".modal-body").innerText = `Please enter a valid word as your guess`;
 }
 
 
 async function getResults(word) {
   const response = await WordGenerator.wordChecker(word);
-  if (response.word[word]) {
-    document.querySelector(".hidden-answer").innerHTML = `
-      Answer: ${response.word}
-      ${response.defs[0]}
+  if (response[0].word) {
+    document.querySelector(".modal-body").innerText = `
+      Answer: ${response[0].word}
+      ${response[0].defs[0]}
       `}
 }
 
-
+async function wordGenerator() {
+  const response = await WordGenerator.wordGenerator();
+  const answer = response[0];
+  document.querySelector(".hidden-answer").innerText = answer;
+}
   
   
 
