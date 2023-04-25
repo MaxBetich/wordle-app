@@ -8,21 +8,45 @@
 </head>
 <body class="p-3 m-0">
   <h1 class="header">A Nightmare on (Word)le Street</h1>
-    <!-- <div class="accordion accordion-flush">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Click me to be haunted by our (word)le!</button>
-          </h2>
-           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
-          <div class="accordion-body">Welcome to the spookiest (word)le game ever!</div>
+  <div class="accordion-container">
+    <div class="accordion" id="about">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Click me to be haunted by our (Word)le!
+          </button> 
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne">
+          <div class="accordion-body">Welcome to the spookiest (Word)le game ever! How to play:<br>
+            <li>Click 'Generate (Word)le' to start the game and a new random secret answer will be chosen</li>
+            <li>Type any valid 5 letter word & press Enter to submit your guess</li>
+            <li>You have 6 chances to guess the secret word</li>
+            <li><span class="text-success">Green</span> = letter is in the correct spot</li> 
+            <li><span class="text-warning">Yellow</span> = correct letter in the wrong spot</li>
+            <li><span class="text-secondary">Gray</span> = letter is not included in the answer</li>
+            <li>Clicking 'New Game!' will clear the board</li>
+          </div> 
         </div>
       </div>
-    </div> -->
+    </div>
+  </div>
   <div class="onebigcontainer">
     <div>
       <button type="submit" class ="btn generate" id="wordGenerator">Generate (Word)le</button>
       <button type="button" class ="btn reset" id="reset">New Game!</button>
-    </div>  
+    </div>
+
+    <button data-modal-target="#modal">Example Modal</button>
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="title">Congrats!</div>
+        <button data-close-button class="close-button">&times;</button>
+      </div>
+      <div class="modal-body">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores iure ratione dolore animi ullam quo asperiores omnis, perspiciatis a, deserunt sunt ad est sed dolorum maxime odit laudantium natus corporis beatae. Perspiciatis sint libero hic nemo voluptatibus repellendus officiis earum error rerum tenetur non beatae, corporis magni. Nostrum vitae, ipsa consectetur dignissimos quibusdam aliquam magnam vel aliquid repellendus at nulla tempora esse aperiam a cupiditate quasi necessitatibus ratione qui? Laborum assumenda unde architecto placeat commodi aperiam obcaecati amet doloremque nam!
+      </div>
+    </div>
+    <div id="overlay"></div>  
+
     <div class="wordle-container">
       <div class="wordle-grid">
         <input class="wordle-cell" type="text" maxlength="1">
@@ -98,6 +122,7 @@
           <button class="enter">Enter</button>
       </div>
       <div class="hidden-answer"></div>
+      
     </div>
   </div>
 </body>

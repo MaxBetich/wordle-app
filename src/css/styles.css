@@ -39,6 +39,25 @@ body{
   height: 100vh;
 }
 
+.accordion-container {
+  position: absolute;
+  top: 130px;
+  left: 100px;
+  width: 400px;
+  margin-right: 900px;
+}
+
+.accordion-collapse {
+  word-wrap: break-word;
+}
+
+.accordion {
+  margin-left: 20px;
+  box-shadow: inset 2px 2px 7px #ffffff, inset -2px -2px 7px rgba(0, 0, 0, 0.945);
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
 .wordle-container {
   display: flex;
   flex-direction: column;
@@ -75,24 +94,11 @@ body{
   box-shadow: inset -2px -2px 7px #fff, inset 2px 2px 7px rgba(0, 0, 0, 0.945);
 }
 
-/* .textContainer{
-  height: 15vh;
-  width: 90vw;
-  background: rgb(247, 247, 247);
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px 1px grey;
-  outline: none;
-  padding: 2rem;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column-reverse;
-}  */
-
 .keyboard{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6rem;
+  margin-top: 5rem;
 }
 
 .row{
@@ -119,6 +125,8 @@ body{
   cursor: pointer;
   padding: 0.5rem 1rem;
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .key:hover{
@@ -128,9 +136,8 @@ body{
 
 .key:active{
   background: lightgrey;
-  transform: translateY(1px);
+  transform: translateY(1px) rotateX(-10deg);
   box-shadow: inset -2px -2px 7px #fff, inset 2px 2px 7px rgba(0, 0, 0, 0.945);
-
 }
 
 .enter, .delete {
@@ -185,7 +192,70 @@ body{
   display:none;
 }
 
-.about {
-
+.modal{
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 75%; 
+  display: none;
+  opacity: 0;
 }
 
+.modal.active {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header{
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-header.title{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-header.close-button{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body{
+  padding: 10px 15px;
+}
+
+#overlay{
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.5);
+  pointer-events: none;
+  z-index: 5;
+  display: none;
+}
+
+#overlay.active{
+  display: block;
+  opacity: 1;
+  pointer-events: all;
+}
