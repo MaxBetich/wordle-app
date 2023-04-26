@@ -31,7 +31,6 @@
   </div>
   <div class="onebigcontainer">
     <div>
-      <button type="submit" class ="btn generate" id="wordGenerator">Generate (Word)le</button>
       <button type="button" class ="btn reset" id="reset">New Game!</button>
     </div>
 
@@ -42,48 +41,62 @@
         <button data-close-button class="close-button">&times;</button>
       </div>
       <div class="modal-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores iure ratione dolore animi ullam quo asperiores omnis, perspiciatis a, deserunt sunt ad est sed dolorum maxime odit laudantium natus corporis beatae. Perspiciatis sint libero hic nemo voluptatibus repellendus officiis earum error rerum tenetur non beatae, corporis magni. Nostrum vitae, ipsa consectetur dignissimos quibusdam aliquam magnam vel aliquid repellendus at nulla tempora esse aperiam a cupiditate quasi necessitatibus ratione qui? Laborum assumenda unde architecto placeat commodi aperiam obcaecati amet doloremque nam!
+        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores iure ratione dolore animi ullam quo asperiores omnis, perspiciatis a, deserunt sunt ad est sed dolorum maxime odit laudantium natus corporis beatae. Perspiciatis sint libero hic nemo voluptatibus repellendus officiis earum error rerum tenetur non beatae, corporis magni. Nostrum vitae, ipsa consectetur dignissimos quibusdam aliquam magnam vel aliquid repellendus at nulla tempora esse aperiam a cupiditate quasi necessitatibus ratione qui? Laborum assumenda unde architecto placeat commodi aperiam obcaecati amet doloremque nam! -->
       </div>
     </div>
     <div id="overlay"></div>  
 
     <div class="wordle-container">
       <div class="wordle-grid">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
+        <table class="wordle-table" id="wordle-table">
+          <tr class="wordle-row" id="row1">
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+          </tr>
 
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
+          <tr class="wordle-row" id="row2">
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+          </tr>
 
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
+          <tr class="wordle-row" id="row3">
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+          </tr>
 
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
+          <tr class="wordle-row" id="row4">
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+          </tr>
 
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-      
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
-        <input class="wordle-cell" type="text" maxlength="1">
+          <tr class="wordle-row" id="row5">
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+          </tr>
+
+          <tr class="wordle-row" id="row6">
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+            <td><input class="wordle-cell" type="text" maxlength="1"></td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="keyboard">
@@ -121,7 +134,7 @@
           <div class="key">m</div>
           <button class="enter">Enter</button>
       </div>
-      <div class="hidden-answer"></div>
+      <div class="hidden-answer" id="1"></div>
       
     </div>
   </div>

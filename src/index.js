@@ -1,10 +1,116 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-// import '';
+import { WordGenerator } from './js/wordGenerator';
 
 // Business Logic
 
+async function wordChecker(word) {
+  const response = await WordGenerator.wordChecker(word);
+  if (response[0] === undefined) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function guessChecker(word, answer) {
+  const guessWord = word.toLowerCase();
+  if (guessWord === answer) {
+    printSuccess();
+  } else {
+    const wordArray = guessWord.split("");
+    let outputArray = [];
+    wordArray.forEach(element => {
+      if (answer.includes(element)) {
+        outputArray.push(element);
+      } else {
+        outputArray.push("-");
+      }
+    });
+    const answerArray = answer.split("");
+    let resultArray = [];
+    for(let i = 0; i < 5; i ++) {
+      if (outputArray[i] === answerArray[i]) {
+        resultArray.push(outputArray[i]);
+      } else {
+        resultArray.push("-");
+      }
+    }
+    let colorArray = ["gray", "gray", "gray", "gray", "gray"];
+    for(let i = 0; i < 5; i ++) {
+      if (outputArray[i] != "-") {
+        colorArray[i] = "yellow";
+      }
+    }
+    for(let i = 0; i < 5; i ++) {
+      if (resultArray[i] != "-") {
+        colorArray[i] = "green";
+      }
+    }
+    return colorArray;
+  }
+}
+
+
+//UI logic-ish
+function turnCounter() {
+  let totalGuess = 6;
+  let currentTurn = parseInt(document.querySelector(".hidden-answer").getAttribute("id"));
+  let guessRemaining = totalGuess - currentTurn;
+  if (guessRemaining === 0) {
+    printFailure();
+  }
+  document.querySelector(".hidden-answer").setAttribute("id", currentTurn + 1);
+}
+
+function printSuccess() { 
+  getResults();
+  document.querySelector(".title").innerText = "You Win!"; 
+  let modal = document.getElementById("modal");
+  let overlay = document.getElementById("overlay");
+  modal.classList.add("active");
+  overlay.setAttribute("class", "active");
+}
+
+function printFailure() { 
+  getResults();
+  document.querySelector(".title").innerText = `Game Over`;
+  let modal = document.getElementById("modal");
+  let overlay = document.getElementById("overlay");
+  modal.classList.add("active");
+  overlay.setAttribute("class", "active");
+}
+
+function printError() {
+  let modal = document.getElementById("modal");
+  let overlay = document.getElementById("overlay");
+  document.querySelector(".title").innerText = `Error`;
+  document.querySelector(".modal-body").innerText = `Please enter a valid word as your guess`;
+  modal.classList.add("active");
+  overlay.setAttribute("class", "active");
+}
+
+
+async function getResults() {
+  const answer = document.querySelector(".hidden-answer").innerText;
+  const response = await WordGenerator.wordChecker(answer);
+  if (response[0].word) {
+    document.querySelector(".modal-body").innerText = `
+      Answer: ${response[0].word}
+      ${response[0].defs[0]}
+      `;}
+}
+
+async function wordGenerator() {
+  const response = await WordGenerator.wordGenerator();
+  const answer = response[0];
+  document.querySelector(".hidden-answer").innerText = answer;
+}
+
+
+
+//Seperation Line
 
 function fillCell(letter) {
   const cells = document.querySelectorAll(".wordle-cell");
@@ -28,54 +134,42 @@ keys.forEach((key)=> {
   });
 });
 
-const wordleGrid = document.querySelector(".wordle-grid");
-
-wordleGrid.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    const currentCell = event.target;
-    const rowCells = currentCell.parentNode.querySelectorAll(".wordle-cell");
-    rowCells.forEach((cell) => {
-      cell.disabled = true;
-    });
-
-    const currentRow = currentCell.parentNode;
-    const nextRow = currentRow.parentNode.nextElementSibling;
-    if (nextRow) {
-      const firstInput = nextRow.querySelector(".wordle-cell");
-      firstInput.focus();
-    } else {
-      let allInputsDisabled = true;
-      let validWord = true;
-      for(const cell of rowCells) {
-        if (!cell.value) {
-          allInputsDisabled = false;
-        }
-      }
-      if (allInputsDisabled) {
-        for(const cell of rowCells) {
-          cell.disabled = true;
-        }
-        for (const cell of rowCells) {
-          const isValid = await  guessChecker (cell.value)
-          if (!isValid) {
-            validWord = false;
-            break;
-          }
-        }
-        if (!validWord) {
-          alert("Invalid word! Try again!");
-          for (const cell of rowCells) {
-            cell.value = "";
-            cell.disabled = false;
-          }
-          rowCells[0].focus();
-        }
-      } else {
-        for(const cell of rowCells) {
-          cell.disabled = false;
-        }
-      }
+const enterKey = document.querySelector(".enter");
+enterKey.addEventListener("click", async () => {
+  const activeRow = document.querySelector(`#row${document.querySelector(".hidden-answer").getAttribute("id")}`);
+  const rowInputs = activeRow.querySelectorAll("input");
+  let wordArray = [];
+  rowInputs.forEach(element => {
+    if (!element.hasAttribute("previous")) {
+      wordArray.push(element.value);
+      element.setAttribute("previous", "");
     }
+  });
+  let validWord = true;
+  const newWord = wordArray.join("");
+  const isValid = await wordChecker(newWord);
+  if (!isValid) {
+    validWord = false;
+    rowInputs.forEach(element => {
+      element.removeAttribute("previous");
+    });
+  }
+  rowInputs.forEach((cell) => {
+    cell.disabled = true;
+  });
+  if (!validWord) {
+    printError();
+    for (const cell of rowInputs) {
+      cell.value = "";
+      cell.disabled = false;
+    }
+    rowInputs[0].focus();
+  } else {
+    const answer = document.querySelector(".hidden-answer").innerText;
+    const colorArray = guessChecker(newWord, answer);
+    console.log(colorArray);
+    //displayColors(colorArray);
+    turnCounter();
   }
 });
 
@@ -138,9 +232,9 @@ function closeModal(modal){
   overlay.classList.remove('active');
 }
 
-const keySpark = document.querySelectorAll(".key")
+const keySpark = document.querySelectorAll(".key");
 
-keys.forEach((key) => {
+keySpark.forEach((key) => {
   key.addEventListener("click", () => {
     key.classList.add("sparkle");
     setTimeout(() => {
@@ -149,9 +243,17 @@ keys.forEach((key) => {
   });
 });
 
+function resetGame() {
+  const cells = document.querySelectorAll(".wordle-cell");
+  cells.forEach((cell) => {
+    cell.value = "";
+    cell.disabled = false;
+  });
+  document.querySelector(".hidden-answer").setAttribute("id", "1");
+  wordGenerator();
+}
 
-// window.addEventListener("load", function() {
-//   this.document.querySelector("").addEventListener("submit", handleFormSubmission);
-// });
+document.getElementById("reset").addEventListener("click", resetGame);
+
 
 
