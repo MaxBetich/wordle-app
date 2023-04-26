@@ -247,17 +247,19 @@ keySpark.forEach((key) => {
   });
 });
 
-function resetGame() {
+async function resetGame() {
   const cells = document.querySelectorAll(".wordle-cell");
   cells.forEach((cell) => {
     cell.value = "";
     cell.disabled = false;
   });
   document.querySelector(".hidden-answer").setAttribute("id", "1");
-  wordGenerator();
+  await wordGenerator();
 }
 
-document.getElementById("reset").addEventListener("click", resetGame);
+document.getElementById("reset").addEventListener("click", async () => {
+  await resetGame();
+  });
 
 
 
