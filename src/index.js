@@ -98,14 +98,18 @@ async function getResults() {
   if (response[0].word) {
     document.querySelector(".modal-body").innerText = `
       Answer: ${response[0].word}
-      ${response[0].defs[0]}
+      ${response[0].meanings[0].definitions[0].definition}
       `;}
 }
 
 async function wordGenerator() {
   const response = await WordGenerator.wordGenerator();
-  const answer = response[0];
-  document.querySelector(".hidden-answer").innerText = answer;
+  const checkedWord = await wordChecker(response);
+  if (checkedWord) {
+    document.querySelector(".hidden-answer").innerText = response;
+  } else {
+    wordGenerator();
+  }
 }
 
 

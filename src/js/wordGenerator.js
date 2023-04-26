@@ -9,14 +9,18 @@ export class WordGenerator {
         const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["error"]}`;
         throw new Error(errorMessage);
       }
-      return jsonifiedResponse;
+      
+      const generatedWord = jsonifiedResponse[0];
+      
+      return generatedWord;
+      
     } catch(error) {
       return error;
     }
   }
 
   static async wordChecker(guessWord) {
-    const urlString = `https://api.datamuse.com/words?sp=${guessWord}&md=d`;
+    const urlString = `https://api.dictionaryapi.dev/api/v2/entries/en/${guessWord}`;
     try {
       const response = await fetch(urlString);
       const jsonifiedResponse = await response.json();
@@ -24,7 +28,6 @@ export class WordGenerator {
         const errorMessage = `There was an error with your request. Error information: ${response.status} ${jsonifiedResponse["message"]}`;
         throw new Error(errorMessage);
       }
-      console.log(jsonifiedResponse);
       return jsonifiedResponse;
     } catch(error) {
       return error;
