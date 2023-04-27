@@ -17,40 +17,36 @@ async function wordChecker(word) {
 
 function guessChecker(word, answer) {
   const guessWord = word.toLowerCase();
-  if (guessWord === answer) {
-    printSuccess();
-  } else {
-    const wordArray = guessWord.split("");
-    let outputArray = [];
-    wordArray.forEach(element => {
-      if (answer.includes(element)) {
-        outputArray.push(element);
-      } else {
-        outputArray.push("-");
-      }
-    });
-    const answerArray = answer.split("");
-    let resultArray = [];
-    for(let i = 0; i < 5; i ++) {
-      if (outputArray[i] === answerArray[i]) {
-        resultArray.push(outputArray[i]);
-      } else {
-        resultArray.push("-");
-      }
+  const wordArray = guessWord.split("");
+  let outputArray = [];
+  wordArray.forEach(element => {
+    if (answer.includes(element)) {
+      outputArray.push(element);
+    } else {
+      outputArray.push("-");
     }
-    let colorArray = ["gray", "gray", "gray", "gray", "gray"];
-    for(let i = 0; i < 5; i ++) {
-      if (outputArray[i] != "-") {
-        colorArray[i] = "yellow";
-      }
+  });
+  const answerArray = answer.split("");
+  let resultArray = [];
+  for(let i = 0; i < 5; i ++) {
+    if (outputArray[i] === answerArray[i]) {
+      resultArray.push(outputArray[i]);
+    } else {
+      resultArray.push("-");
     }
-    for(let i = 0; i < 5; i ++) {
-      if (resultArray[i] != "-") {
-        colorArray[i] = "green";
-      }
-    }
-    return colorArray;
   }
+  let colorArray = ["gray", "gray", "gray", "gray", "gray"];
+  for(let i = 0; i < 5; i ++) {
+    if (outputArray[i] != "-") {
+      colorArray[i] = "yellow";
+    }
+  }
+  for(let i = 0; i < 5; i ++) {
+    if (resultArray[i] != "-") {
+      colorArray[i] = "green";
+    }
+  }
+  return colorArray;
 }
 
 
@@ -189,10 +185,12 @@ enterKey.addEventListener("click", async () => {
   } else {
     const answer = document.querySelector(".hidden-answer").innerText;
     const colorArray = guessChecker(newWord, answer);
-    console.log(colorArray);
     displayColors(colorArray);
     turnCounter();
-  }
+    if (newWord.toLowerCase() === document.querySelector(".hidden-answer").innerText) {
+      printSuccess();
+    } 
+  }  
 });
 
 function displayColors(colorArray) {
@@ -236,7 +234,7 @@ keySpark.forEach((key) => {
     key.classList.add("sparkle");
     setTimeout(() => {
       key.classList.remove("sparkle");
-    }, 500);
+    }, 1000);
   });
 });
 
@@ -245,6 +243,7 @@ async function resetGame() {
   cells.forEach((cell) => {
     cell.value = "";
     cell.disabled = false;
+    cell.setAttribute("class", "wordle-cell");
   });
   document.querySelector(".hidden-answer").setAttribute("id", "1");
   await wordGenerator();

@@ -161,7 +161,7 @@ body{
   50% {
     transform: scale(2);
   }
-  100% {
+  70% {
     transform: scale(1);
     opacity: 1;
   }
