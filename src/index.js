@@ -2,7 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import { WordGenerator } from './js/wordGenerator.js';
-import './assets/audio/scary.mp3'; 
+import './assets/audio/Horror-Long-Version.mp3'; 
 
 // Business Logic
 
