@@ -1,4 +1,4 @@
-//import WordGenerator from "./wordGenerator";
+// import WordGenerator from "./wordGenerator.js";
 
 export async function wordChecker(word) {
   const response = await WordGenerator.wordChecker(word);
@@ -80,6 +80,32 @@ async function formSubmit(event) {
   const colorArray = await guessChecker(word, answer);
   displayColors(colorArray);
 }
+//colorArray will be something like ["gray", "gray", "green", "yellow", "gray"]
+
+function displayColors(colorArray) {
+  colorArray.forEach(element => {
+    if (element === "yellow") {
+      document.querySelector(".wordle-cell").setAttribute("id","yellow");
+    } else if (element === "green") {
+      document.querySelector(".wordle-cell").setAttribute("id", "green"); 
+    }
+  })
+}    
+
+window.addEventListener("load", function() {
+  this.document.querySelector("").addEventListener("submit", formSubmit);
+});
+//   const addColorToCell = (cellLetter, color) => {
+//     const cell = document.querySelector(".wordle-cell");
+//     cell.classList.add(color);
+//   }})
+  
+//   const flipCell = () => {
+//     const currentCell = event.target;
+//     const rowCells = currentCell.parentNode.querySelectorAll(".wordle-cell");
+//     const guess = [];
+//   }
+// }
 
 function printSuccess(word) {
   // document.querySelector(".hidden-answer").removeAttribute("hidden"); 

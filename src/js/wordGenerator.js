@@ -32,6 +32,8 @@ export class WordGenerator {
   }
 }
 
+
+
 // export async function wordChecker(inputWord) {
 //   const response = await WordGenerator.wordChecker(inputWord);
 //   console.log(response);
