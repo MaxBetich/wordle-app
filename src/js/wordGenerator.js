@@ -34,14 +34,3 @@ export class WordGenerator {
     }
   }
 }
-
-// export async function wordChecker(inputWord) {
-//   const response = await WordGenerator.wordChecker(inputWord);
-//   console.log(response);
-//   const word = response[0];
-//   if (word["word"]) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
