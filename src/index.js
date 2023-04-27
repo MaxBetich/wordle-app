@@ -1,7 +1,8 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import { WordGenerator } from './js/wordGenerator';
+import { WordGenerator } from './js/wordGenerator.js';
+import './assets/audio/scary.mp3'; 
 
 // Business Logic
 
@@ -112,8 +113,6 @@ async function wordGenerator() {
   }
 }
 
-
-
 //Seperation Line
 
 function fillCell(letter) {
@@ -131,11 +130,30 @@ function fillCell(letter) {
 }
 
 const keys = document.querySelectorAll(".key");
-keys.forEach((key)=> {
+keys.forEach((key) => {
   key.addEventListener("click", () => {
     const letter = key.innerText;
     fillCell(letter);
   });
+});
+
+const deleteKey = document.querySelector(".delete");
+deleteKey.addEventListener("click", () => {
+  const cells = document.querySelectorAll(".wordle-cell");
+  let fullCell = null;
+  cells.forEach((cell) => {
+    if (cell.classList.contains("filled")) {
+      fullCell = cell;
+    }
+  });
+  if (fullCell) {
+    fullCell.value = "";
+    fullCell.classList.remove("filled");
+    const previousCell = fullCell.previousElementSibling;
+    if (previousCell) {
+      previousCell.focus();
+    }
+  }
 });
 
 const enterKey = document.querySelector(".enter");
@@ -172,30 +190,18 @@ enterKey.addEventListener("click", async () => {
     const answer = document.querySelector(".hidden-answer").innerText;
     const colorArray = guessChecker(newWord, answer);
     console.log(colorArray);
-    //displayColors(colorArray);
+    displayColors(colorArray);
     turnCounter();
   }
 });
 
-const deleteKey = document.querySelector(".delete");
-deleteKey.addEventListener("click", () => {
-  const cells = document.querySelectorAll(".wordle-cell");
-  let fullCell = null;
-  cells.forEach((cell) => {
-    if (cell.classList.contains("filled")) {
-      fullCell = cell;
-    }
-  });
-  if (fullCell) {
-    fullCell.value = "";
-    fullCell.classList.remove("filled");
-    const previousCell = fullCell.previousElementSibling;
-    if (previousCell) {
-      previousCell.focus();
-    }
+function displayColors(colorArray) {
+  const targetRow = document.querySelector(`#row${document.querySelector(".hidden-answer").getAttribute("id")}`);
+  const targetInputs = targetRow.querySelectorAll("input");
+  for (let i = 0; i < 5; i ++) {
+    targetInputs[i].classList.add(colorArray[i]);
   }
-});
-
+}  
 
 // UI Logic
 
@@ -247,6 +253,5 @@ async function resetGame() {
 document.getElementById("reset").addEventListener("click", async () => {
   await resetGame();
 });
-
 
 

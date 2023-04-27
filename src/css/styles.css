@@ -37,15 +37,16 @@ body{
   align-items: center;
   justify-content: space-evenly;
   height: 100vh;
-  margin-top: -75px;
 }
 
-.accordion-container {
-  position: absolute;
-  top: 130px;
-  left: 240px;
-  width: 400px;
-  margin-right: 900px;
+.accordion-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  border-top: 1px solid black;
+  box-sizing: border-box;
 }
 
 .accordion-collapse {
@@ -53,10 +54,11 @@ body{
 }
 
 .accordion {
-  margin-left: 20px;
+  margin-left: 0px;
   box-shadow: inset 2px 2px 7px #ffffff, inset -2px -2px 7px rgba(0, 0, 0, 0.945);
   border-radius: 0.5rem;
-  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
 }
 
 .accordion-button:focus {
@@ -65,15 +67,15 @@ body{
   border-bottom: 1px solid black;
   background-color: white;
   border-color: rgba(0,0,0,.125);
+  z-index: 1;
 }
 
 .accordion-button:not(.collapsed){
   box-shadow: none;
   background-color: white;
   border-color: rgba(0,0,0,.125);
+  z-index: 1;
 }
-
-
 
 .wordle-container {
   display: flex;
@@ -120,7 +122,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -130px;
+  margin-top: -50px;
 }
 
 .row{
@@ -191,7 +193,7 @@ body{
   font-size: 1.2rem;
   width: 100px;
   height: 60px;
-  z-index: 1;
+  z-index: 0;
 }
 
 .delete{
@@ -211,19 +213,6 @@ body{
 
 .active{
   background-color: whitesmoke;
-}
-
-.generate {
-  font-size: inherit;
-  background-color: #fff;
-  box-shadow: inset 2px 2px 7px #ffffff, inset -2px -2px 7px rgba(0, 0, 0, 0.945);
-  border: none;
-  border-radius: 0.5rem;
-}
-
-.generate:hover{
-  background-color: lightgrey;
-  transform: translateY(-5px)
 }
 
 .reset {
@@ -315,4 +304,33 @@ body{
 
 .mButton {
   margin-top: -60px;
+}
+
+.gray {
+  background-color: #3a3a3c !important;
+  border:none !important;
+}
+
+.yellow {
+  animation: 0.5s linear flipping;
+  background-color: #b59f3a !important;
+  border:none !important;
+}
+
+.green {
+  animation: 0.5s linear flipping;
+  background-color: #538d4e !important;
+  border:none !important;
+}
+
+@keyframes flipping {
+  0% {
+      transform: rotateX(0deg);
+  }
+  50% {
+      transform: rotateX(90deg);
+  }
+  100% {
+      transform: rotateX(0deg);
+  }
 }
