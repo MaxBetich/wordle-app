@@ -24,6 +24,7 @@ _This application demonstrates using 2 different APIs, one from Random-Word-API 
 * _Cells will flip yellow if correct letter is guessed but in the wrong spot, green if correct letter in the correct spot, or remain grey if not included in the hidden word_
 * _A modal will pop up either once you have guessed the right word, or once you had run out of guesses_
 * _Modal will include correct word and its definition according to DictionaryAPI_
+* _Try not to be scared!_
 
 ## Setup/Installation Requirements
 
